@@ -1,0 +1,1 @@
+[{"title":"teclado","price":"70","thumbnail":"","id":1},{"title":"mouse","price":"80","thumbnail":"","id":2},{"title":"monitor","price":"90","thumbnail":"","id":3}]

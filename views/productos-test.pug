@@ -1,0 +1,20 @@
+if productos.length
+                table.table
+                    thead 
+                        tr
+                            th Titulo 
+                            th Precio 
+                            th Foto
+                    tbody
+                        each producto in productos 
+                            tr 
+                                td=producto.nombre
+                                td=producto.precio
+                                td
+                                    img(src=producto.foto)
+else 
+    .alert.alert-warning.alert-dismissible.fade.show(role='alert')
+        strong no hay productos
+        button.btn-close(data-bs-dismiss="alert" aria-label="Close")
+                    
+    

@@ -1,0 +1,44 @@
+extends layout
+
+block plantillapug
+    h1(style='color:blue') Centro de Mensajes
+    .row 
+        .col 
+            form#form-product(onsubmit='return addProduct(event)' action='/productos' method='POST')
+                .mb-3
+                    i
+                        label.form-label(for='nombre') Nombre
+                    input#nombre.form-control(type='text' aria-describedby='emailHelp' name='author[nombre]' required=true)
+                
+                .mb-3
+                    i
+                        label.form-label(for='apellido') Apellido
+                    input#apellido.form-control(type='text' name='author[apellido]' required=true)
+                
+
+                .mb-3
+                        i
+                            label.form-label(for='edad') Edad
+                        input#edad.form-control(type='number' name='author[edad]' required=true)
+                    
+
+                .mb-3
+                        i
+                            label.form-label(for='alias') Alias
+                        input#alias.form-control(type='text' name="author['alias']" required=true)                
+
+
+                .mb-3
+                        i
+                            label.form-label(for='avatar') Avatar
+                        input#avatar.form-control(type='text' name="author['avatar']") 
+                .mb-3 
+                        i 
+                            label.form-label(for='text') Mensaje 
+                        input#text.form-control(type="text" placeholder='Enviar un mensaje' name='text') 
+
+                button.btn.btn-primary(type='submit') Enviar
+          
+        .col
+            #chat
+            
