@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import AuthorSchema from './author';
+import { AuthorSchema } from './author.js';
 
 const mensajesCollection = 'mensajes';
 

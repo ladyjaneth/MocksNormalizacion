@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
-
 const authorCollection = 'authors';
 
-const AuthorSchema = new mongoose.model({
-    id:{type:String, required:true, max:100, unique: true},
+export const AuthorSchema = new mongoose.Schema({
+    id:{type:String, required:true, max:100},
     nombre:{type:String, required:true, max:100},
     apellido:{type:String, required:true, max:100},
     edad:{type:Number, required:true, max:100},

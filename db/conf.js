@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
-CRUD()
-async function CRUD(){
+export default async function CRUD(){
     try{
         const URL = 'mongodb://localhost:27017/mensajes'
         let ruta =  await mongoose.connect(URL,{
@@ -9,9 +8,9 @@ async function CRUD(){
             useUnifiedTopology:true
         })
 
-        console.log('Base de datos conectada')
+        console.log('Base de datos conectada Mongo')
 
     }catch(exception){
-
+        console.log('conexión db: ', exception);
     }
 }

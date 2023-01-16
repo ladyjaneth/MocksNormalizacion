@@ -3,12 +3,14 @@ import express from 'express';
 import { Server as HttpServer } from 'http';
 import { Server } from 'socket.io';
 import Contenedor from './manejadorarchivos.js';
+import CRUD from './db/conf.js';
+import { authors } from './models/author.js';
+import { mensajes } from './models/mensaje.js';
 faker.locale = 'es';
 
 //const { Socket } = require('dgram');
 
 const contenedor = new Contenedor();
-const mensajes = [];
 
 const app=express();
 const httpServer= HttpServer(app);
@@ -27,24 +29,28 @@ httpServer.listen(PORT, ()=>{
 });
 
 //generar laconexión por websocket -- servidor de websocketque tenemos en la variable io
- io.on('connection',socket=>{
-    console.log('Un cliente se ha conectado'); 
-    //cuando ya se ha conectado emitir los mensajes que hayan habido 
-    socket.emit('messages',mensajes);//backend al fronend
-    socket.on('new-message', data=>{ //recibiendo el mensaje que le envian del fronend
-        mensajes.push(data)//guardando el mensaje
-        io.sockets.emit('messages', mensajes)
-    })
-
-    const productos = contenedor.getAll();//trae todos los productos
-    socket.emit('productos', productos);//emitiendo los productos a las demás personas del backend al fronend
-
-     socket.on('new-producto', async data=>{//recibiendo el producto
-        console.log(data);
-        //await contenedor.save(data);
-        //io.sockets.emit('productos',  productos);
-    })
-
+ io.on('connection',async socket=>{
+    console.log('conexión al socket');
+    try{
+        await CRUD();
+        let mensajesDB = await mensajes.find();
+        console.log('Un cliente se ha conectado'); 
+        //cuando ya se ha conectado emitir los mensajes que hayan habido 
+        socket.emit('messages',mensajesDB);//backend al fronend
+        socket.on('new-message', async data=>{ //recibiendo el mensaje que le envian del fronend
+            try{
+                await CRUD();
+                console.log(data);
+                await mensajes.create(data);//guardando el mensaje
+                mensajesDB = await mensajes.find();
+                io.sockets.emit('messages', mensajesDB)
+            }catch(exception){
+                console.log(exception);
+            }
+        })
+    }catch(exception){
+        console.log(exception);
+    }
 })
 
 //pinta los productos 
