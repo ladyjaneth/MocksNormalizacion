@@ -40,7 +40,6 @@ httpServer.listen(PORT, ()=>{
         socket.on('new-message', async data=>{ //recibiendo el mensaje que le envian del fronend
             try{
                 await CRUD();
-                console.log(data);
                 await mensajes.create(data);//guardando el mensaje
                 mensajesDB = await mensajes.find();
                 io.sockets.emit('messages', mensajesDB)
